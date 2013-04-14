@@ -6,13 +6,12 @@ public class Node {
   boolean visited;
   LinkedList<Node> neighbors;
 
-  public Node(char value, boolean visited, LinkedList<Node> neighbors) {
+  public Node(char value, boolean visited) {
     this.value = value;
     this.visited = visited;
-    this.neighbors = neighbors;
   }
-
-  public static Node buildGraph(String input) {
-    //do something
+  
+  public void addNeighborList(LinkedList<Node> neighbors) {
+    this.neighbors = neighbors;
   }
 }
