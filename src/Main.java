@@ -17,5 +17,4 @@ public class Main {
 	  
 	  //Solver.solveWithDict(board);
 	}
-
 }

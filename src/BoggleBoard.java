@@ -91,6 +91,9 @@ public class BoggleBoard {
         System.out.println(neighbors);
       }
     }
-    
+  }
+
+  public Node getBoggleBoardGraph() {
+    return boardArray[1][1];
   }
 }
