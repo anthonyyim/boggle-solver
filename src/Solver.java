@@ -25,22 +25,25 @@ public class Solver {
     System.out.println("\n" + "Begin solving...");
     // TODO (anthonyyim): put below in nested for loop to iterate through every starting position.
     String wordSoFar = String.valueOf(node.value);
+    node.visited = true;
     solveRecursively(dictionary, wordSoFar, node);
+    node.visited = false;
     System.out.println("\n" + "Finished solving.");
   }
 
   private static void solveRecursively(HashMap<String, String> dictionary, String wordSoFar, Node node) {
-    // Base case - wordSoFar is a dict. word. If there a valid word within a longer valid word, the
-    // longer word will not be found.
-    // TODO (anthonyyim): add prefix checker.
-
     //System.out.println(wordSoFar);
-
-    if (dictionary.containsKey(wordSoFar) && wordSoFar.length() >= 3){
-      System.out.println("Answer: " + wordSoFar);
-    } else if (wordSoFar.length() >= 16) {
-      // Do nothing - second base case.  
-    } else {
+    
+    if (wordSoFar.length() >= 16){
+      // Base case
+      if (dictionary.containsKey(wordSoFar)){
+        System.out.println("Answer: " + wordSoFar);
+      }
+    } else {      
+      if (dictionary.containsKey(wordSoFar) && wordSoFar.length() >= 3) {
+        System.out.println("Answer: " + wordSoFar);
+      }
+      
       for(Node neighbor : node.neighbors) {
         if (!neighbor.visited) {
           neighbor.visited = true;
