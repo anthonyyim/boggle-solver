@@ -15,6 +15,6 @@ public class Main {
 	  BoggleBoard board = new BoggleBoard();
 	  board.generateRandom();
 	  
-	  //Solver.solveWithDict(board);
+	  Solver.solveWithDict(board.getBoggleBoardGraph());
 	}
 }
