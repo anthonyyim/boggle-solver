@@ -16,5 +16,7 @@ public class Main {
 	  board.generateRandom();
 	  
 	  Solver.solveWithDict(board);
+	  
+	  //Solve.solveWithPrefixTree(board);
 	}
 }
