@@ -17,6 +17,6 @@ public class Main {
 	  
 	  Solver.solveWithDict(board);
 	  
-	  //Solve.solveWithPrefixTree(board);
+	  //Solver.solveWithPrefixTree(board);
 	}
 }
