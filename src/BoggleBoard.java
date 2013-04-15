@@ -93,7 +93,7 @@ public class BoggleBoard {
     }
   }
 
-  public Node getBoggleBoardGraph() {
-    return boardArray[1][1];
+  public Node[][] getBoggleBoardArray() {
+    return boardArray;
   }
 }

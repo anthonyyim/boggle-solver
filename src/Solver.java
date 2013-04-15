@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Solver {
 
-  public static void solveWithDict(Node node) {
+  public static void solveWithDict(BoggleBoard board) {
     // Replace the File constructor's argument with the full path of where your new-line
     // separated dictionary word file is.
     File file = new File("/home/tacocat/Code/Boggle-Solver/src/english_dict.txt");
@@ -21,13 +21,26 @@ public class Solver {
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
-    
+
+    /*
+     * Solve recursively for each possible starting point on the Boggle board.
+     */
+    Node[][] boardArray = board.getBoggleBoardArray();
+
     System.out.println("\n" + "Begin solving...");
-    // TODO (anthonyyim): put below in nested for loop to iterate through every starting position.
-    String wordSoFar = String.valueOf(node.value);
-    node.visited = true;
-    solveRecursively(dictionary, wordSoFar, node);
-    node.visited = false;
+
+    for (int i = 0; i < boardArray.length; i++) {
+      for (int j = 0; j < boardArray.length; j++) {
+        if (boardArray[i][j].value != '0') {
+          Node node = boardArray[i][j];
+          String wordSoFar = String.valueOf(node.value);
+          node.visited = true;
+          solveRecursively(dictionary, wordSoFar, node);
+          node.visited = false;
+        }
+      }
+    }
+
     System.out.println("\n" + "Finished solving.");
   }
 
