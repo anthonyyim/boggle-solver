@@ -1,3 +1,3 @@
 A boggle solver.
 
-My goal is to write a time efficient boggle solver allowing preprocessing. The boggle solver is designed to be used over and over again (hence the preprocessing). I'm assuming memory isn't a big issue.
+My goal is to write a time efficient boggle solver (allowing preprocessing - e.g. by building a prefix tree).
