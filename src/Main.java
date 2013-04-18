@@ -9,8 +9,6 @@ public class Main {
 	  BoggleBoard board = new BoggleBoard();
 	  board.generateRandom();
 	  
-	  //Bug in prefix solver.
-	  //Solver.solveWithPrefixDict(board);
 	  Solver.solveWithWordDict(board);
 	  Solver.solveWithPrefixDict(board);
 	}
