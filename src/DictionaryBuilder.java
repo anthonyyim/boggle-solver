@@ -43,8 +43,8 @@ public class DictionaryBuilder {
           String substring = word.substring(0, i);
           if (i == word.length()) {
             dictionary.put(substring, "word");
-          } else {
-            dictionary.put(substring, "prefix");
+          } else if (dictionary.containsKey(substring) != true){
+              dictionary.put(substring, "prefix");
           }
         }
       } 

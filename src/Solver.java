@@ -100,11 +100,11 @@ public class Solver {
           System.out.println("Answer: " + wordSoFar);
         }
       }
-    } else if (!dictionary.containsKey(wordSoFar)) {
+    } else if (dictionary.containsKey(wordSoFar) != true) {
       // Base case #2 - no such prefix or word in dictionary.
       // Do nothing.
     } else {
-      if (dictionary.get(wordSoFar).equals("word")) {
+      if (dictionary.get(wordSoFar).equals("word") && wordSoFar.length() >= 3) {
         System.out.println("Answer: " + wordSoFar);
       }
 
