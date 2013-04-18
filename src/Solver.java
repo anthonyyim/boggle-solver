@@ -1,72 +1,44 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.Scanner;
 
+/**
+ * Solver class.
+ *
+ * @author anthonyyim@gmail.com (Anthony Yim)
+ */
 public class Solver {
-
-  public static void solveWithDict(BoggleBoard board) {
-    // Replace the File constructor's argument with the full path of where your new-line
-    // separated dictionary word file is.
-    File file = new File("/home/tacocat/Code/Boggle-Solver/src/english_dict.txt");
-    HashMap<String, String> dictionary = new HashMap<String, String>();
-    
-    // Build dictionary.
-    try {
-      Scanner scanner = new Scanner(file);
-      while (scanner.hasNextLine()) {
-        String word = scanner.nextLine();
-        dictionary.put(word, word);
-      } 
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-
-    /*
-     * Solve recursively for each possible starting point on the Boggle board.
-     */
-    Node[][] boardArray = board.getBoggleBoardArray();
+  private static long iterationCounterForWordSolver = 0L;
+  private static long iterationCounterForPrefixSolver = 0L;
+  
+  public static void solveWithWordDict(BoggleBoard board) {
+    HashMap<String, String> dictionary = DictionaryBuilder
+        .buildWordDictionary("/home/tacocat/Code/Boggle-Solver/src/english_dict.txt");
 
     System.out.println("\n" + "Begin solving...");
+    Node[][] boardArray = board.getBoggleBoardArray();
 
+    // Solve recursively for each possible starting point on the Boggle board.
+    // TODO (anthonyyim): Refactor BoggleBoard to implement Enumeration interface.
     for (int i = 0; i < boardArray.length; i++) {
       for (int j = 0; j < boardArray.length; j++) {
-        if (boardArray[i][j].value != '0') {
+        if (boardArray[i][j].getValue() != '0') {
           Node node = boardArray[i][j];
-          String wordSoFar = String.valueOf(node.value);
-          node.visited = true;
-          solveRecursivelyWithoutPrefix(dictionary, wordSoFar, node);
-          node.visited = false;
+          String wordSoFar = String.valueOf(node.getValue());
+          node.setVisited(true);
+          solveRecursivelyWithWord(dictionary, wordSoFar, node);
+          node.setVisited(false);
         }
       }
     }
 
     System.out.println("\n" + "Finished solving.");
+
+    System.out.println("\n" + "Num of iterations: " + iterationCounterForWordSolver);
+    System.out.println("Dictionary size: " + dictionary.size());
   }
 
   public static void solveWithPrefixDict(BoggleBoard board) {
-    File file =  new File("/home/tacocat/Code/Boggle-Solver/src/english_dict.txt");
-    HashMap<String, String> dictionary = new HashMap<String, String>();
-    
-    // Build prefix dictionary.
-    try {
-      Scanner scanner = new Scanner(file);
-      while (scanner.hasNextLine()) {
-        String word = scanner.nextLine();
-
-        // Generate prefixes
-        for (int i = 1; i <= word.length(); i++) {
-          String substring = word.substring(0, i);
-          if (i == word.length()) {
-            dictionary.put(substring, "word");
-          } else {
-            dictionary.put(substring, "prefix");
-          }
-        }
-      } 
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
+    HashMap<String, String> dictionary = DictionaryBuilder
+        .buildPrefixDictionary("/home/tacocat/Code/Boggle-Solver/src/english_dict.txt");
 
     /*
      * Solve recursively for each possible starting point on the Boggle board.
@@ -78,22 +50,25 @@ public class Solver {
 
     for (int i = 0; i < boardArray.length; i++) {
       for (int j = 0; j < boardArray.length; j++) {
-        if (boardArray[i][j].value != '0') {
+        if (boardArray[i][j].getValue() != '0') {
           Node node = boardArray[i][j];
-          String wordSoFar = String.valueOf(node.value);
-          node.visited = true;
+          String wordSoFar = String.valueOf(node.getValue());
+          node.setVisited(true);
           solveRecursivelyWithPrefix(dictionary, wordSoFar, node);
-          node.visited = false;
+          node.setVisited(false);
         }
       }
     }
 
     System.out.println("\n" + "Finished solving.");
+    System.out.println("\n" + "Num of iters: " + iterationCounterForPrefixSolver);
+    System.out.println("Dictionary size: " + dictionary.size());
   }
 
-  private static void solveRecursivelyWithoutPrefix(HashMap<String, String> dictionary, String wordSoFar, Node node) {
+  private static void solveRecursivelyWithWord(HashMap<String, String> dictionary, String wordSoFar, Node node) {
     //System.out.println(wordSoFar);
-    
+    iterationCounterForWordSolver++;
+
     if (wordSoFar.length() >= 16){
       // Base case
       if (dictionary.containsKey(wordSoFar)){
@@ -104,11 +79,11 @@ public class Solver {
         System.out.println("Answer: " + wordSoFar);
       }
       
-      for(Node neighbor : node.neighbors) {
-        if (!neighbor.visited) {
-          neighbor.visited = true;
-          solveRecursivelyWithoutPrefix(dictionary, wordSoFar.concat(String.valueOf(neighbor.value)), neighbor);
-          neighbor.visited = false;
+      for(Node neighbor : node.getNeighbors()) {
+        if (!neighbor.isVisited()) {
+          neighbor.setVisited(true);
+          solveRecursivelyWithWord(dictionary, wordSoFar.concat(String.valueOf(neighbor.getValue())), neighbor);
+          neighbor.setVisited(false);
         }
       }
     }
@@ -116,7 +91,8 @@ public class Solver {
 
   private static void solveRecursivelyWithPrefix(HashMap<String, String> dictionary, String wordSoFar, Node node) {
     //System.out.println(wordSoFar);
- 
+    iterationCounterForPrefixSolver++;
+    
     if (wordSoFar.length() >= 16) {
       // Base case #1 - max Boggle word length
       if (dictionary.containsKey(wordSoFar)) {
@@ -132,11 +108,11 @@ public class Solver {
         System.out.println("Answer: " + wordSoFar);
       }
 
-      for(Node neighbor : node.neighbors) {
-        if (!neighbor.visited) {
-          neighbor.visited = true;
-          solveRecursivelyWithPrefix(dictionary, wordSoFar.concat(String.valueOf(neighbor.value)), neighbor);
-          neighbor.visited = false;
+      for(Node neighbor : node.getNeighbors()) {
+        if (!neighbor.isVisited()) {
+          neighbor.setVisited(true);
+          solveRecursivelyWithPrefix(dictionary, wordSoFar.concat(String.valueOf(neighbor.getValue())), neighbor);
+          neighbor.setVisited(false);
         }
       }
     }

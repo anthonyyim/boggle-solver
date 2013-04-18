@@ -1,22 +1,18 @@
 /**
+ * Main class for Boggle solver.
  * 
- */
-
-/**
- * @author Anthony Yim (anthonyyim@gmail.com)
- * Board: the entity 
+ * @author anthonyyim@gmail.com (Anthony Yim)
  */
 public class Main {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 	  BoggleBoard board = new BoggleBoard();
 	  board.generateRandom();
 	  
-	  //Solver.solveWithDict(board);
-	  
+	  //Bug in prefix solver.
 	  Solver.solveWithPrefixDict(board);
+	  //Solver.solveWithWordDict(board);
+	  
+	  //Solver.solveWithPrefixDict(board);
 	}
 }

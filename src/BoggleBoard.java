@@ -1,11 +1,15 @@
 import java.util.LinkedList;
 import java.util.Random;
 
-
+/**
+ * Class representing a Boogle board.
+ *
+ * @author anthonyyim@gmail.com (Anthony Yim)
+ */
 public class BoggleBoard {
   public static final int BOGGLE_SIZE = 4;
   public static final int BOARD_SIZE = BOGGLE_SIZE + 2;
-  Node[][] boardArray;
+  private Node[][] boardArray;
   
   public BoggleBoard() {}
   
@@ -24,7 +28,7 @@ public class BoggleBoard {
           boardArray[i][j] = new Node(alphabet.charAt(rand.nextInt(alphabet.length())), false);
         }
 
-        System.out.print(boardArray[i][j].value);
+        System.out.print(boardArray[i][j].getValue());
       }
       System.out.print("\n");
     }
@@ -35,46 +39,46 @@ public class BoggleBoard {
         LinkedList<Node> neighborList = new LinkedList<Node>();
 
         // Top left neighbor
-        if(boardArray[i-1][j-1].value != '0') {
+        if(boardArray[i-1][j-1].getValue() != '0') {
           neighborList.add(boardArray[i-1][j-1]);
         }
 
         // Top mid neighbor
-        if(boardArray[i-1][j].value != '0') {
+        if(boardArray[i-1][j].getValue() != '0') {
           neighborList.add(boardArray[i-1][j]);
         }
 
         // Top right neighbor
-        if(boardArray[i-1][j+1].value != '0') {
+        if(boardArray[i-1][j+1].getValue() != '0') {
           neighborList.add(boardArray[i-1][j+1]);
         }
 
         // Mid left neighbor
-        if(boardArray[i][j-1].value != '0') {
+        if(boardArray[i][j-1].getValue() != '0') {
           neighborList.add(boardArray[i][j-1]);
         }
 
         // Mid right neighbor
-        if(boardArray[i][j+1].value != '0') {
+        if(boardArray[i][j+1].getValue() != '0') {
           neighborList.add(boardArray[i][j+1]);
         }
 
         // Bottom left neighbor
-        if(boardArray[i+1][j-1].value != '0') {
+        if(boardArray[i+1][j-1].getValue() != '0') {
           neighborList.add(boardArray[i+1][j-1]);
         }
 
         // Bottom mid neighbor
-        if(boardArray[i+1][j].value != '0') {
+        if(boardArray[i+1][j].getValue() != '0') {
           neighborList.add(boardArray[i+1][j]);
         }
 
         // Bottom right neighbor
-        if(boardArray[i+1][j+1].value != '0') {
+        if(boardArray[i+1][j+1].getValue() != '0') {
           neighborList.add(boardArray[i+1][j+1]);
         }
         
-        boardArray[i][j].addNeighborList(neighborList);
+        boardArray[i][j].setNeighborList(neighborList);
       }
     }
 
@@ -82,10 +86,10 @@ public class BoggleBoard {
     // TODO (anthonyyim): remove this or move to private debug method.
     for (int i = 1; i < BOARD_SIZE-1; i++) {
       for (int j = 1; j < BOARD_SIZE-1; j++) {
-        System.out.print(boardArray[i][j].value + ": ");
+        System.out.print(boardArray[i][j].getValue() + ": ");
         String neighbors = "";
-        for(Node node : boardArray[i][j].neighbors) {
-          neighbors += node.value;
+        for(Node node : boardArray[i][j].getNeighbors()) {
+          neighbors += node.getValue();
         }
         
         System.out.println(neighbors);
