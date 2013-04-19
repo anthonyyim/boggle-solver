@@ -1,3 +1,102 @@
-A boggle solver.
+A BOGGLE SOLVER.
 
-My goal is to write a time efficient boggle solver (allowing preprocessing - e.g. by building a prefix tree).
+Author: anthonyyim@gmail.com (Anthony Yim)
+Status: In progress.
+
+This is an experiment to investigate the various ways of implementing a boggle solver. The goal is to figure out the most efficient (in terms of time complexity) and elegant way of solving boggle. For this experiment, we are not too concerned with memory limitations (space complexity).
+
+The following are ways I will solve Boggle for this experiment:
+1. Compute all possible combination of letters by recusively backtracking.
+2. Computer all possible combination of letters by recursively backtracking and pruning (do not continue to recurse if combo of letters will no lead to a word). 
+2a. Use a hash table of prefixes and words.
+2b. Use a prefix tree (trie tree) - more memory efficient than a hash table of prefixes and words.
+
+Think you can do better? Email me!
+
+*****************************************************************
+
+Sample output:
+000000
+0cnlw0
+0zgul0
+0lvzy0
+0eglz0
+000000
+c: nzg
+n: clzgu
+l: nwgul
+w: lul
+z: cnglv
+g: cnlzulvz
+u: nlwglvzy
+l: lwuzy
+l: zgveg
+v: zgulzegl
+z: gulvyglz
+y: ulzlz
+e: lvg
+g: lvzel
+l: vzygz
+z: zyl
+
+Begin solving using hashmap of words...
+Answer: null
+Answer: null
+Answer: lung
+Answer: lug
+Answer: luv
+Answer: gnu
+Answer: gun
+Answer: gul
+Answer: gull
+Answer: gully
+Answer: gul
+Answer: gull
+Answer: guv
+Answer: guy
+Answer: gleg
+Answer: glegly
+Answer: lung
+Answer: lug
+Answer: luv
+Answer: lev
+Answer: leg
+Answer: vug
+Answer: veg
+Answer: gel
+
+Finished solving.
+
+Num of iterations: 12029640
+Dictionary size: 172820
+
+Begin solving using hashmap of prefixes and words (w/ pruning)...
+Answer: null
+Answer: null
+Answer: lung
+Answer: lug
+Answer: luv
+Answer: gnu
+Answer: gun
+Answer: gul
+Answer: gull
+Answer: gully
+Answer: gul
+Answer: gull
+Answer: guv
+Answer: guy
+Answer: gleg
+Answer: glegly
+Answer: lung
+Answer: lug
+Answer: luv
+Answer: lev
+Answer: leg
+Answer: vug
+Answer: veg
+Answer: gel
+
+Finished solving.
+
+Num of iters: 637
+Dictionary size: 387880
