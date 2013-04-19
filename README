@@ -7,7 +7,7 @@ This is an experiment to investigate the various ways of implementing a boggle s
 
 The following are ways I will solve Boggle for this experiment:
 1. Compute all possible combination of letters by recusively backtracking.
-2. Computer all possible combination of letters by recursively backtracking and pruning (do not continue to recurse if combo of letters will no lead to a word). 
+2. Computer all possible combination of letters by recursively backtracking and pruning (do not continue to recurse if combo of letters will not lead to a word). 
 2a. Use a hash table of prefixes and words.
 2b. Use a prefix tree (trie tree) - more memory efficient than a hash table of prefixes and words.
 
