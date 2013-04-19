@@ -1,7 +1,8 @@
 import java.util.LinkedList;
 
 /**
- * Node representation of a single letter of a Boggle board.
+ * Node representation of a single letter on a Boggle board. Used to build a 
+ * (traversable) graph representation of a Boggle board.
  *
  * @author anthonyyim@gmail.com (Anthony Yim)
  */

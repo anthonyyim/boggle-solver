@@ -1,23 +1,23 @@
 import java.util.HashMap;
 
+
 /**
- * Solver class.
+ * Class contains several different algorithms for solving Boggle.
  *
  * @author anthonyyim@gmail.com (Anthony Yim)
  */
 public class Solver {
   private static long iterationCounterForWordSolver = 0L;
   private static long iterationCounterForPrefixSolver = 0L;
-  
+
   public static void solveWithWordDict(BoggleBoard board) {
     HashMap<String, String> dictionary = DictionaryBuilder
         .buildWordDictionary("/home/tacocat/Code/Boggle-Solver/src/english_dict.txt");
 
-    System.out.println("\n" + "Begin solving...");
+    System.out.println("\n" + "Begin solving using hashmap of words...");
     Node[][] boardArray = board.getBoggleBoardArray();
 
     // Solve recursively for each possible starting point on the Boggle board.
-    // TODO (anthonyyim): Refactor BoggleBoard to implement Enumeration interface.
     for (int i = 0; i < boardArray.length; i++) {
       for (int j = 0; j < boardArray.length; j++) {
         if (boardArray[i][j].getValue() != '0') {
@@ -31,7 +31,6 @@ public class Solver {
     }
 
     System.out.println("\n" + "Finished solving.");
-
     System.out.println("\n" + "Num of iterations: " + iterationCounterForWordSolver);
     System.out.println("Dictionary size: " + dictionary.size());
   }
@@ -40,14 +39,11 @@ public class Solver {
     HashMap<String, String> dictionary = DictionaryBuilder
         .buildPrefixDictionary("/home/tacocat/Code/Boggle-Solver/src/english_dict.txt");
 
-    /*
-     * Solve recursively for each possible starting point on the Boggle board.
-     * TODO (anthonyyim): Duplicate code! Refactor!
-     */
     Node[][] boardArray = board.getBoggleBoardArray();
 
-    System.out.println("\n" + "Begin solving...");
+    System.out.println("\n" + "Begin solving using hashmap of prefixes and words (w/ pruning)...");
 
+    //Solve recursively for each possible starting point on the Boggle board.
     for (int i = 0; i < boardArray.length; i++) {
       for (int j = 0; j < boardArray.length; j++) {
         if (boardArray[i][j].getValue() != '0') {
@@ -65,6 +61,11 @@ public class Solver {
     System.out.println("Dictionary size: " + dictionary.size());
   }
 
+  /*
+   * Recursively find all combinations of letters that make up a word. Halting (hitting a base
+   * case) when a 16 letter combination is formed or when there is no additional unused
+   * (unvisited) letter to be added to the current combination. 
+   */
   private static void solveRecursivelyWithWord(HashMap<String, String> dictionary, String wordSoFar, Node node) {
     //System.out.println(wordSoFar);
     iterationCounterForWordSolver++;
@@ -89,6 +90,12 @@ public class Solver {
     }
   }
 
+  /*
+   * Recursively find all combinations of letters that make up a word. Halting (hitting a base
+   * case) when a 16 letter combination is formed or when there is no additional unused
+   * (unvisited) letter to be added to the current combination. In addition, do not continue to recurse
+   * if the current combination of letters cannot possibly form a word (i.e. no such prefix exists).
+   */
   private static void solveRecursivelyWithPrefix(HashMap<String, String> dictionary, String wordSoFar, Node node) {
     //System.out.println(wordSoFar);
     iterationCounterForPrefixSolver++;

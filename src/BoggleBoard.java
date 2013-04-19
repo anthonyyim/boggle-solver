@@ -1,8 +1,10 @@
 import java.util.LinkedList;
 import java.util.Random;
 
+
 /**
- * Class representing a Boogle board.
+ * Class representing a Boggle board.
+ * TODO (anthonyyim@gmail.com): Implement Enumeration interface so board can be iterated easily.
  *
  * @author anthonyyim@gmail.com (Anthony Yim)
  */
