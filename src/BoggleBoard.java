@@ -1,14 +1,15 @@
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
 
 /**
  * Class representing a Boggle board.
- * TODO (anthonyyim@gmail.com): Implement Iterator interface so board can be iterated easily.
+ * TODO (anthonyyim@gmail.com): Implement Iterable interface so board can be iterated easily.
  *
  * @author anthonyyim@gmail.com (Anthony Yim)
  */
-public class BoggleBoard {
+public class BoggleBoard implements Iterable<Node> {
   public static final int BOGGLE_SIZE = 4;
   public static final int BOARD_SIZE = BOGGLE_SIZE + 2;
   private Node[][] boardArray;
@@ -101,5 +102,9 @@ public class BoggleBoard {
 
   public Node[][] getBoggleBoardArray() {
     return boardArray;
+  }
+
+  public Iterator<Node> iterator() {
+    return new BoggleBoardIterator(boardArray);
   }
 }

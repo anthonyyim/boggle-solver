@@ -18,6 +18,7 @@ public class Solver {
     Node[][] boardArray = board.getBoggleBoardArray();
 
     // Solve recursively for each possible starting point on the Boggle board.
+    /*
     for (int i = 0; i < boardArray.length; i++) {
       for (int j = 0; j < boardArray.length; j++) {
         if (boardArray[i][j].getValue() != '0') {
@@ -28,8 +29,15 @@ public class Solver {
           node.setVisited(false);
         }
       }
-    }
+    }*/
 
+    for(Node node : board) {
+      String wordSoFar = String.valueOf(node.getValue());
+      node.setVisited(true);
+      solveRecursivelyWithWord(dictionary, wordSoFar, node);
+      node.setVisited(false);
+    }
+    
     System.out.println("\n" + "Finished solving.");
     System.out.println("\n" + "Num of iterations: " + iterationCounterForWordSolver);
     System.out.println("Dictionary size: " + dictionary.size());
@@ -94,8 +102,7 @@ public class Solver {
     iterationCounterForPrefixSolver++;
     
     if (dictionary.containsKey(wordSoFar) != true) {
-      // Base case - no such prefix or word in dictionary.
-      // Do nothing.
+      // Base case (do nothing) - no such prefix or word in dictionary.
     } else {
       if (dictionary.get(wordSoFar).equals("word") && wordSoFar.length() >= 3) {
         System.out.println("Answer: " + wordSoFar);
