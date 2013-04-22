@@ -14,9 +14,11 @@ public class BoggleBoard implements Iterable<Node> {
   public static final int BOARD_SIZE = BOGGLE_SIZE + 2;
   private Node[][] boardArray;
   
-  public BoggleBoard() {}
+  public BoggleBoard() {
+    this.generateRandom();
+  }
   
-  public void generateRandom() {
+  private void generateRandom() {
     String alphabet = "abcdefghijklmnopqrstuvwxyz";
     Random rand = new Random();
 
@@ -98,10 +100,6 @@ public class BoggleBoard implements Iterable<Node> {
         System.out.println(neighbors);
       }
     }
-  }
-
-  public Node[][] getBoggleBoardArray() {
-    return boardArray;
   }
 
   public Iterator<Node> iterator() {

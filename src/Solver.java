@@ -15,22 +15,8 @@ public class Solver {
         .buildWordDictionary("/home/tacocat/Code/Boggle-Solver/src/english_dict.txt");
 
     System.out.println("\n" + "Begin solving using hashmap of words...");
-    Node[][] boardArray = board.getBoggleBoardArray();
 
     // Solve recursively for each possible starting point on the Boggle board.
-    /*
-    for (int i = 0; i < boardArray.length; i++) {
-      for (int j = 0; j < boardArray.length; j++) {
-        if (boardArray[i][j].getValue() != '0') {
-          Node node = boardArray[i][j];
-          String wordSoFar = String.valueOf(node.getValue());
-          node.setVisited(true);
-          solveRecursivelyWithWord(dictionary, wordSoFar, node);
-          node.setVisited(false);
-        }
-      }
-    }*/
-
     for(Node node : board) {
       String wordSoFar = String.valueOf(node.getValue());
       node.setVisited(true);
@@ -47,21 +33,14 @@ public class Solver {
     HashMap<String, String> dictionary = DictionaryBuilder
         .buildPrefixDictionary("/home/tacocat/Code/Boggle-Solver/src/english_dict.txt");
 
-    Node[][] boardArray = board.getBoggleBoardArray();
-
     System.out.println("\n" + "Begin solving using hashmap of prefixes and words (w/ pruning)...");
 
-    //Solve recursively for each possible starting point on the Boggle board.
-    for (int i = 0; i < boardArray.length; i++) {
-      for (int j = 0; j < boardArray.length; j++) {
-        if (boardArray[i][j].getValue() != '0') {
-          Node node = boardArray[i][j];
-          String wordSoFar = String.valueOf(node.getValue());
-          node.setVisited(true);
-          solveRecursivelyWithPrefix(dictionary, wordSoFar, node);
-          node.setVisited(false);
-        }
-      }
+    // Solve recursively for each possible starting point on the Boggle board.
+    for (Node node : board) {
+      String wordSoFar = String.valueOf(node.getValue());
+      node.setVisited(true);
+      solveRecursivelyWithPrefix(dictionary, wordSoFar, node);
+      node.setVisited(false);
     }
 
     System.out.println("\n" + "Finished solving.");
