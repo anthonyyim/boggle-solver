@@ -70,22 +70,15 @@ public class Solver {
     //System.out.println(wordSoFar);
     iterationCounterForWordSolver++;
 
-    if (wordSoFar.length() >= 16){
-      // Base case
-      if (dictionary.containsKey(wordSoFar)){
-        System.out.println("Answer: " + wordSoFar);
-      }
-    } else {      
-      if (dictionary.containsKey(wordSoFar) && wordSoFar.length() >= 3) {
-        System.out.println("Answer: " + wordSoFar);
-      }
-      
-      for(Node neighbor : node.getNeighbors()) {
-        if (!neighbor.isVisited()) {
-          neighbor.setVisited(true);
-          solveRecursivelyWithWord(dictionary, wordSoFar.concat(String.valueOf(neighbor.getValue())), neighbor);
-          neighbor.setVisited(false);
-        }
+    if (dictionary.containsKey(wordSoFar) && wordSoFar.length() >= 3) {
+      System.out.println("Answer: " + wordSoFar);
+    }
+
+    for(Node neighbor : node.getNeighbors()) {
+      if (!neighbor.isVisited()) {
+        neighbor.setVisited(true);
+        solveRecursivelyWithWord(dictionary, wordSoFar.concat(String.valueOf(neighbor.getValue())), neighbor);
+        neighbor.setVisited(false);
       }
     }
   }
@@ -100,15 +93,8 @@ public class Solver {
     //System.out.println(wordSoFar);
     iterationCounterForPrefixSolver++;
     
-    if (wordSoFar.length() >= 16) {
-      // Base case #1 - max Boggle word length
-      if (dictionary.containsKey(wordSoFar)) {
-        if (dictionary.get(wordSoFar).equals("word")) {
-          System.out.println("Answer: " + wordSoFar);
-        }
-      }
-    } else if (dictionary.containsKey(wordSoFar) != true) {
-      // Base case #2 - no such prefix or word in dictionary.
+    if (dictionary.containsKey(wordSoFar) != true) {
+      // Base case - no such prefix or word in dictionary.
       // Do nothing.
     } else {
       if (dictionary.get(wordSoFar).equals("word") && wordSoFar.length() >= 3) {

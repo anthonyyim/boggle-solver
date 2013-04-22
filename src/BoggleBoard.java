@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * Class representing a Boggle board.
- * TODO (anthonyyim@gmail.com): Implement Enumeration interface so board can be iterated easily.
+ * TODO (anthonyyim@gmail.com): Implement Iterator interface so board can be iterated easily.
  *
  * @author anthonyyim@gmail.com (Anthony Yim)
  */
@@ -85,7 +85,7 @@ public class BoggleBoard {
     }
 
     // Print graph to check method.
-    // TODO (anthonyyim): remove this or move to private debug method.
+    // TODO (anthonyyim): make this into a private method.
     for (int i = 1; i < BOARD_SIZE-1; i++) {
       for (int j = 1; j < BOARD_SIZE-1; j++) {
         System.out.print(boardArray[i][j].getValue() + ": ");
